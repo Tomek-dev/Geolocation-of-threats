@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class DataLoaderService {
@@ -24,9 +27,10 @@ public class DataLoaderService {
     }
 
     public void saveData(){
-        List<Point> points = new LinkedList<>();
+        LocalDateTime instance = LocalDateTime.now();
+        String time = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH).format(instance);
         RestTemplate template = new RestTemplate();
-        String data = template.getForObject(URL, String.class);
+        String data = template.getForObject(URL + time + ".csv", String.class);
         try {
             pointDao.saveAll(DataParser.parser(data));
         } catch (IOException e) {
