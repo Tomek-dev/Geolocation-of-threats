@@ -16,7 +16,7 @@ import java.util.Locale;
 @Service
 public class DataLoaderService {
 
-    private static final String URL = "http://localhost:8080/";
+    private static final String URL = "";
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH);
 
     private PointDao pointDao;
@@ -34,7 +34,7 @@ public class DataLoaderService {
         boolean success = false;
         while (!success){
             try{
-                data = template.getForObject(URL + time, String.class);
+                data = template.getForObject(URL + time + ".csv", String.class);
                 success = true;
             }catch (HttpClientErrorException e){
                 instance = LocalDate.parse(time, FORMATTER);

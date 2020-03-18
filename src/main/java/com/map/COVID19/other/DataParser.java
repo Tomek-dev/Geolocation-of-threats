@@ -4,6 +4,7 @@ import com.map.COVID19.builder.PointBuilder;
 import com.map.COVID19.model.Point;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -16,7 +17,7 @@ public class DataParser {
         List<Point> points = new LinkedList<>();
         StringReader reader = new StringReader(data);
         CSVParser parser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
-        parser.forEach(value -> {
+        for(CSVRecord value : parser){
             Point point = PointBuilder.builder()
                     .country(value.get("Country/Region"))
                     .province(value.get("Province/State"))
@@ -27,7 +28,7 @@ public class DataParser {
                     .confirmed(value.get("Confirmed"))
                     .build();
             points.add(point);
-        });
+        }
         return points;
     }
 }

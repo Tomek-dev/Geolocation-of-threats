@@ -4,7 +4,7 @@ import com.map.COVID19.model.Point;
 
 public class PointBuilder {
 
-    private Point point;
+    private Point point = new Point();
 
     public static PointBuilder builder(){
         return new PointBuilder();
