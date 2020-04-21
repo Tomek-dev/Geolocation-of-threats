@@ -26,6 +26,11 @@ public class DataLoaderService {
         this.pointDao = pointDao;
     }
 
+
+    /**
+     * Load data and save it in DB. If data with an actual date not exist,
+     * it checks if exists data with the previous date and does this until finding data.
+     */
     public void saveData(){
         LocalDate instance = LocalDate.now();
         String time = FORMATTER.format(instance);
